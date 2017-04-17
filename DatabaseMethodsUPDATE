@@ -1,0 +1,36 @@
+//fetch the invoice
+//update the status fields to paid
+List<apex_invoice__c> invoiceList  = [select id, Name, apex_status__c, createdDate from apex_invoice__c ];
+
+//create a list to store records which we need to update.
+List<apex_invoice__c> updateInvoiceList = new List<apex_invoice__c>();
+
+for(apex_invoice__c inv : invoiceList)
+{
+    if(inv.apex_status__c == 'pending')
+    {
+        inv.apex_status__c = 'paid';
+        updateInvoiceList.add(inv);
+    }
+}
+
+Database.SaveResult[] resultList = Database.update(updateInvoiceList, false);
+
+// Iterate through the results
+// Return success message if successful
+// Return error messages on failure
+
+for(Database.SaveResult result : resultList)
+{
+    if(result.isSuccess())
+    {
+        System.debug('Successfully updated the invoice: ' + result.getId());
+    }
+    for(Database.Error objError : result.getErrors())
+    {
+        System.debug('The Following Errors Occured :');
+        System.debug(objError.getStatusCode() + ' : ' + objError.getMessage());
+        System.debug('The fields affected: ' + objError.getFields());
+    }
+}
+ 
