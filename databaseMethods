@@ -1,3 +1,9 @@
+// Create a new customr object
+// Create a list of related invoices
+// Insert the list in the database
+// Provide feedback if successful otherwise display error mesages and fields affected.
+
+
 apex_customer__c newCustomer = new apex_customer__c();
 newCustomer.Name = 'Test';
 insert newCustomer;
