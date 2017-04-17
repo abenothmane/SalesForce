@@ -1,0 +1,36 @@
+apex_customer__c newCustomer = new apex_customer__c();
+newCustomer.Name = 'Test';
+insert newCustomer;
+
+
+List<apex_invoice__c> invoicesToInsert = new List<apex_invoice__c>();
+
+apex_invoice__c invoiceToInsert = new apex_invoice__c();
+invoiceToInsert.apex_Status__c ='Pending';
+invoiceToInsert.apex_amount_paid__c = 800;
+
+invoicesToInsert.add(invoiceToInsert);
+
+apex_invoice__c invoiceToInsert2 = new apex_invoice__c();
+invoiceToInsert2.apex_Status__c ='Pending';
+invoiceToInsert2.apex_amount_paid__c = 80000;
+invoiceToInsert2.apex_customer__c = newCUstomer.id;
+
+invoicesToInsert.add(invoiceToInsert2);
+
+Database.SaveResult results[]=Database.insert(invoicesToinsert, false);
+
+for(Database.SaveResult sr : results)
+{
+    if(sr.isSuccess())
+    {
+        System.debug('Successfully inserted the invoice: ' + sr.getId() );
+    }
+    
+    for(Database.Error objError : sr.getError())
+    {
+        System.debug('The following errors occured');
+        System.debug(objError.getStatusCode()' : ' + objError.getMessage());
+        System.debug('Affected invoice fields: ' + objError.getFields());
+    }
+}
