@@ -9,3 +9,8 @@ List<Account> returnedAccountList = (List<Account>)customersList[1];
 //display returned customers
 System.debug('The customers records matching the search: ' + returnedCustomerList);
 System.debug('The accounts records matching the search: ' + returnedAccountList);
+
+//seaqrch in the lead object and find the records with a specific name
+
+List<List<SObject>> leadList = [FIND 'myjbilourack' IN NAME Fields returning lead(name, phone where createdDate = THIS_FISCAL_QUARTER)];
+System.debug('The results are : ' + leadList);
