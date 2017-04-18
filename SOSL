@@ -1,0 +1,2 @@
+List<List<SObject>> customerList = [find 'jbilou' in NAME Fields returning apex_customer__c(id, apex_customer__c.Name, apex_customer__c.apex_customer_description__c)];
+System.debug('The result is: ' + customerList);
