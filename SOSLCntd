@@ -1,0 +1,11 @@
+List<List<SObject>> customersList = [find 'test*' in ALL Fields returning apex_customer__c(id,apex_customer__c.Name, apex_customer__c.apex_customer_description__c)
+ ,Account(id, Name)];
+
+System.debug('The results are : ' + customersList);
+//display each result separately
+
+List<apex_customer__c> returnedCustomerList = (List<apex_customer__c>)customersList[0];
+List<Account> returnedAccountList = (List<Account>)customersList[1];
+//display returned customers
+System.debug('The customers records matching the search: ' + returnedCustomerList);
+System.debug('The accounts records matching the search: ' + returnedAccountList);
