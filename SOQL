@@ -1,0 +1,11 @@
+//Polymorphic call From an Event object that returnes different result depending on the type of the parent.
+
+List<SObject> s = [Select TYPEOF What
+when Account THEN Phone,NumberOfEmployees
+
+When Opportunity THEN Amount,CloseDate
+Else Name,Email
+END
+from EVENT];
+
+System.debug(s);
